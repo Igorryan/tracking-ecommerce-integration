@@ -1,0 +1,53 @@
+//Arquivo importa o CSV do FTP da FLASH e salva no banco REDIS
+const SendMessageWhatsApp = require('./SendMessageWhatsApp');
+const path = require('path');
+const fs = require('fs');
+const csv = require('csv-parser');
+const getHawbs = require('../functions/getHawbs');
+
+async function ImportCSV(fileName) {
+
+  try {
+
+    const hawbs = [];
+
+    let countLinesCsv = 0;
+
+    await fs.createReadStream(path.resolve('src', 'files', `${fileName}`))
+      .pipe(csv())
+      .on('data', (row) => {
+        const linha = JSON.stringify(row);
+        const splitMaster = linha.split(';');
+        const [, hawb] = splitMaster[7].split(':"');
+        const [numAr,] = splitMaster[8].split(' ');
+        const name = splitMaster[11].trim();
+        const [phone,] = splitMaster[14].split(' ');
+
+        hawbs.push({
+          hawb,
+          numAr,
+          name,
+          phone
+        });
+
+        countLinesCsv++;
+      })
+      .on('end', async () => {
+        console.log(`Linhas lidas no CSV: ${countLinesCsv}`)
+        console.log('✔ Hawbs salvos no Redis;');
+        console.log(`Pedidos recuperados do Redis: ${hawbs.length}`);
+
+        if (!hawbs) {
+          throw new Error('Nenhum hawb lido no CSV');
+        }
+
+        const pedidos = await getHawbs(hawbs);
+        pedidos && await SendMessageWhatsApp(pedidos);
+      });
+  } catch (err) {
+    throw new Error(err);
+  }
+
+}
+
+module.exports = ImportCSV;
