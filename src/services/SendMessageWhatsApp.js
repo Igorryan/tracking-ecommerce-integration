@@ -46,7 +46,7 @@ async function SendMessageWhatsApp(pedidos) {
       if (eventoTrim !== 'Sinistro - Cliente Avisado') {
         const textoMensagem = getTemplateMessageWhatsApp(eventoTrim, { nome: csv.name, hawb: csv.hawb, dataString: ocorrencia, arCorreios, situacao, local });
         if (textoMensagem !== '') {
-          await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
+         // await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
           console.log(`MENSAGEM: ${textoMensagem} PARA NUMERO: ${csv.phone}`);
           pedidosNovos++;
           mensagensEnviadas++;
@@ -68,7 +68,7 @@ async function SendMessageWhatsApp(pedidos) {
         //Evento do pedido alterou
         const textoMensagem = getTemplateMessageWhatsApp(eventoTrim, { nome: csv.name, hawb: csv.hawb, dataString: ocorrencia, arCorreios, situacao, local });
         if (textoMensagem !== '') {
-          await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
+         // await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
           console.log(`MENSAGEM: ${textoMensagem} PARA NUMERO: ${csv.phone}`);
           await Message.updateOne({ _id: pedido._id }, { evento: eventoTrim });
           pedidosAtualizados++;
