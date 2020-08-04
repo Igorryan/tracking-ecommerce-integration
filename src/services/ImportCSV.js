@@ -34,8 +34,8 @@ async function ImportCSV(fileName) {
       })
       .on('end', async () => {
         console.log(`Linhas lidas no CSV: ${countLinesCsv}`)
-        console.log('✔ Hawbs salvos no Redis;');
-        console.log(`Pedidos recuperados do Redis: ${hawbs.length}`);
+        console.log('✔ Hawbs salvos');
+        console.log(`Pedidos recuperados: ${hawbs.length}`);
 
         if (!hawbs) {
           throw new Error('Nenhum hawb lido no CSV');

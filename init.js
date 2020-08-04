@@ -1,14 +1,20 @@
 require("dotenv").config();
 const { connectDb } = require("./src/models");
+const express = require('express');
 
 const cron = require('node-cron');
 const microsservice = require('./src/app');
 
+const app = express();
+app.use(express.json());
+app.listen(3333 || process.env.PORT , () => console.log('Executando microsservice tracking (FLASH & AMEND)'));
+
+setInterval(() => {
+  console.log('Aplicação executando...')
+}, 20000)
+
 connectDb().then(async () => {
-  setInterval(() => {
-    console.log('Aplicação executando')
-  }, 3000)
-  console.log('Executando microsservice tracking (FLASH & AMEND)!');
+  console.log('Banco conectado e cron job iniciado.');
   cron.schedule("0 */1 * * *", async () => {
     microsservice();
     console.log('Executando verificação de horário...');

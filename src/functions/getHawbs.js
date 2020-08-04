@@ -13,7 +13,7 @@ async function getHawbs(PedidosDoCSV) {
   }
 
   if (!PedidosDoCSV) {
-    throw new Error('Não foi encontrado nenhum registro de pedidos no Redis para hoje');
+    throw new Error('Não foi encontrado nenhum registro de pedidos para hoje');
   }
 
   //Separando em arrays de no maximo 500 posições
