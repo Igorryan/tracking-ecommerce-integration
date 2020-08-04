@@ -7,7 +7,7 @@ const microsservice = require('./src/app');
 
 const app = express();
 app.use(express.json());
-app.listen(3333 || process.env.PORT , () => console.log('Executando microsservice tracking (FLASH & AMEND)'));
+app.listen(process.env.PORT || 3000, () => console.log('Executando microsservice tracking (FLASH & AMEND)'));
 
 setInterval(() => {
   console.log('Aplicação executando...')
