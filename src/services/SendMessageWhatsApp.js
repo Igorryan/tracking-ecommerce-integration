@@ -46,7 +46,7 @@ async function SendMessageWhatsApp(pedidos) {
       if (eventoTrim !== 'Sinistro - Cliente Avisado') {
         const textoMensagem = getTemplateMessageWhatsApp(eventoTrim, { nome: csv.name, hawb: csv.hawb, dataString: ocorrencia, arCorreios, situacao, local });
         if (textoMensagem !== '') {
-         // await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
+          await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
           console.log(`MENSAGEM: ${textoMensagem} PARA NUMERO: ${csv.phone}`);
           pedidosNovos++;
           mensagensEnviadas++;
@@ -68,7 +68,7 @@ async function SendMessageWhatsApp(pedidos) {
         //Evento do pedido alterou
         const textoMensagem = getTemplateMessageWhatsApp(eventoTrim, { nome: csv.name, hawb: csv.hawb, dataString: ocorrencia, arCorreios, situacao, local });
         if (textoMensagem !== '') {
-         // await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
+          await sendMessageAPIWhatsApp(csv.phone, textoMensagem);
           console.log(`MENSAGEM: ${textoMensagem} PARA NUMERO: ${csv.phone}`);
           await Message.updateOne({ _id: pedido._id }, { evento: eventoTrim });
           pedidosAtualizados++;
@@ -81,11 +81,11 @@ async function SendMessageWhatsApp(pedidos) {
   const end = new Date();
 
   const log = `Mensagem técnica: 
-  \nInicio do processo: *${start.getHours()}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}*\n
+  \nInicio do processo: *${start.getHours() - 3}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}*\n
   \nPedidos analisados: *${pedidos.length}*
   \nPedidos novos (mensagens enviadas): *${pedidosNovos}*
   \nPedidos atualizados (mensagens enviadas): *${pedidosAtualizados}*\n
-  \nFim do processo: ${end.getHours()}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
+  \nFim do processo: ${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
   `
 
   await sendMessageAPIWhatsApp('31989551995', log);
