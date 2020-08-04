@@ -9,10 +9,6 @@ const app = express();
 app.use(express.json());
 app.listen(process.env.PORT || 3000, () => console.log('Executando microsservice tracking (FLASH & AMEND)'));
 
-setInterval(() => {
-  console.log('Aplicação executando...')
-}, 20000)
-
 connectDb().then(async () => {
   console.log('Banco conectado e cron job iniciado.');
   cron.schedule("0 */1 * * *", async () => {
