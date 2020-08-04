@@ -1,4 +1,4 @@
 module.exports = {
-  url: 'https://eu95.chat-api.com/instance103871',
-  token: 'etj4w2rcujdmaq34'
+  url: process.env.CHAT_API_URL,
+  token: process.env.CHAT_API_TOKEN
 }
