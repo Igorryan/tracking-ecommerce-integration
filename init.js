@@ -11,8 +11,8 @@ app.listen(process.env.PORT || 3000, () => console.log('Executando microsservice
 
 connectDb().then(async () => {
   console.log('Banco conectado e cron job iniciado.');
+  microsservice();
   cron.schedule("0 */1 * * *", async () => {
-    microsservice();
     console.log('Executando verificação de horário...');
   });
 });

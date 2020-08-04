@@ -29,7 +29,7 @@ async function App() {
       }
 
       running = false;
-      
+      await new Promise(resolve => setTimeout(resolve, 10000));
     } catch (err) {
       console.log(err);
       await new Promise(resolve => setTimeout(resolve, 5000));
