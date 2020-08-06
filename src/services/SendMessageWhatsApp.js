@@ -57,7 +57,7 @@ async function SendMessageWhatsApp(pedidos) {
     } else if (pedido) {
       if (pedido.evento === 'Sinistro - Cliente Avisado') {
         console.log('Sinistro, cliente avisado e armazenado no banco');
-      } else if (pedido.evento === 'Devolvido pelos correios'){
+      } else if (pedido.evento === 'Devolvido pelos correios') {
         console.log('Pedido devolvido pelos correios');
       } else if (pedido.evento === 'Entregue Terceiro' || pedido.evento === 'Comprovante registrado' || pedido.evento === 'Entrega registrada' || pedido.evento === 'Entrega registrada via RT') {
         //Evento do pedido possui status de pedido entregue
@@ -85,11 +85,13 @@ async function SendMessageWhatsApp(pedidos) {
   \nPedidos analisados: *${pedidos.length}*
   \nPedidos novos (mensagens enviadas): *${pedidosNovos}*
   \nPedidos atualizados (mensagens enviadas): *${pedidosAtualizados}*\n
-  \nFim do processo: ${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
+  \nFim do processo: *${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}*
   `
 
-  await sendMessageAPIWhatsApp('31989551995', log);
-  await sendMessageAPIWhatsApp('11989187726', log);
+  if (process.env.NUM_FOR_LOGS) {
+    await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, log);
+  }
+
   console.log(`✔ Pedidos analisados: ${pedidos.length}`)
   console.log(`✔ Pedidos novos (mensagens enviadas): ${pedidosNovos}`)
   console.log(`✔ Pedidos atualizados (mensagens enviadas): ${pedidosAtualizados}`)

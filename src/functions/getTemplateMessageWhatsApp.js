@@ -8,7 +8,7 @@ function getTemplateMessageWhatsApp(evento, client) {
 
   if (evento === 'Redespachado por Terceiro') {
     return `Olá, ${nome} 
-    \nSeu pedido Amend foi postado em ${data} às ${hour}:${minutes} sob o código de rastreio *${newHawb}*.
+    \nSeu pedido ${process.env.NAME_ENTERPRISE} foi postado em ${data} às ${hour}:${minutes} sob o código de rastreio *${newHawb}*.
     \nPara receber as próximas atualizações da sua entrega, salve nosso contato na sua agenda e responda com a frase *ACOMPANHAR ENTREGA*
     \nVocê também pode acompanhar o status da sua encomenda no site da Flash Logística através do link abaixo 👇
     
@@ -24,17 +24,17 @@ function getTemplateMessageWhatsApp(evento, client) {
   }
   else if ((evento === 'Entrega não efetuada')) {
     return `${nome},
-    \nFoi tentada a entrega do seu pedido Amend em ${data} às ${hour}:${minutes}, porém, sem sucesso.
+    \nFoi tentada a entrega do seu pedido ${process.env.NAME_ENTERPRISE} em ${data} às ${hour}:${minutes}, porém, sem sucesso.
     \nMotivo: ${situacao}
-    \nPor favor, entre em contato com o SAC Amend no link abaixo para te ajudarmos.
+    \nPor favor, entre em contato com o SAC ${process.env.NAME_ENTERPRISE} no link abaixo para te ajudarmos.
     
-    >>> https://bit.ly/3cFGW4o
+    >>> ${process.env.SAC_LINK}
    
     \n_Esta é uma mensagem automática_`
   }
   else if ((evento === 'Preparada para a transferencia')) {
     return `${nome},
-    \nSeu pedido Amend sob código de rastreio *${newHawb}* está sendo transferido para ${local}. Te manteremos informado(a) sobre o status da sua entrega.
+    \nSeu pedido ${process.env.NAME_ENTERPRISE} sob código de rastreio *${newHawb}* está sendo transferido para ${local}. Te manteremos informado(a) sobre o status da sua entrega.
     \nVocê também pode acompanhar o status da sua encomenda através do link abaixo 👇
     
     >>> https://flashcourier.com.br/rastreio/${newHawb}
