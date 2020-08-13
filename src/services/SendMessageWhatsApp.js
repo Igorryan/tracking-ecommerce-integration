@@ -12,7 +12,7 @@ async function SendMessageWhatsApp(pedidos) {
 
     const start = new Date();
 
-    let logs = `Log: ${start.getDay()}/${start.getMonth}`;
+    let logs = `Log do dia: ${start.getDay()}/${start.getMonth()}`;
 
     console.log(`Iniciando processo de envio de mensagem às ${start.getHours()}:${start.getMinutes()}`);
 
@@ -104,19 +104,19 @@ async function SendMessageWhatsApp(pedidos) {
     const end = new Date();
 
     if (process.env.NUM_FOR_LOGS) {
-      await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, `${logs}\n\nMensagem técnica: 
-        \nInicio do processo: *${start.getHours() - 3}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}*\n
-        \nPedidos analisados: *${pedidos.length}*
-        \nPedidos novos (mensagens enviadas): *${pedidosNovos}*
-        \nPedidos atualizados (mensagens enviadas): *${pedidosAtualizados}*\n
-        \nFim do processo: *${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}*
+      await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, `${logs}\nMensagem técnica: 
+        \nInicio do processo: ${start.getHours() - 3}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}\n
+        \nPedidos analisados: ${pedidos.length}
+        \nPedidos novos (mensagens enviadas): ${pedidosNovos}
+        \nPedidos atualizados (mensagens enviadas): ${pedidosAtualizados}\n
+        \nFim do processo: ${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
         `);
-      await sendMessageAPIWhatsApp('31989551995', `${logs}\n\nMensagem técnica: 
-        \nInicio do processo: *${start.getHours() - 3}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}*\n
-        \nPedidos analisados: *${pedidos.length}*
-        \nPedidos novos (mensagens enviadas): *${pedidosNovos}*
-        \nPedidos atualizados (mensagens enviadas): *${pedidosAtualizados}*\n
-        \nFim do processo: *${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}*
+      await sendMessageAPIWhatsApp('31989551995', `${logs}\nMensagem técnica: 
+        \nInicio do processo: ${start.getHours() - 3}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}\n
+        \nPedidos analisados: ${pedidos.length}
+        \nPedidos novos (mensagens enviadas): ${pedidosNovos}
+        \nPedidos atualizados (mensagens enviadas): ${pedidosAtualizados}\n
+        \nFim do processo: ${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
         `);
     }
 
