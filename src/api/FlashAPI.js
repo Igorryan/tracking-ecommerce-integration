@@ -6,37 +6,45 @@ class FlashAPI {
   }
 
   async getToken() {
-    const { key, login, senha, urlToken } = flashConfig;
+    try {
+      const { key, login, senha, urlToken } = flashConfig;
 
-    var headersOpt = {
-      "content-type": "application/json",
-      "Authorization": key
-    };
+      var headersOpt = {
+        "content-type": "application/json",
+        "Authorization": key
+      };
 
-    const { data } = await axios.post(urlToken, {
-      "login": login,
-      "senha": senha
-    }, { headers: headersOpt });
+      const { data } = await axios.post(urlToken, {
+        "login": login,
+        "senha": senha
+      }, { headers: headersOpt });
 
-    return data.access_token;
+      return data.access_token;
+    } catch (err) {
+      throw new Error('Erro ao tentar pegar token na API da Flash');
+    }
   }
 
   async getOrders(token, numArs) {
 
-    const { urlConsulta, clienteId, cttId } = flashConfig;
+    try {
+      const { urlConsulta, clienteId, cttId } = flashConfig;
 
-    var headersOpt = {
-      "content-type": "application/json",
-      "Authorization": token
-    };
+      var headersOpt = {
+        "content-type": "application/json",
+        "Authorization": token
+      };
 
-    const { data } = await axios.post(urlConsulta, {
-      "clienteId": clienteId,
-      "cttId": cttId,
-      "numEncCli": numArs
-    }, { headers: headersOpt });
+      const { data } = await axios.post(urlConsulta, {
+        "clienteId": clienteId,
+        "cttId": cttId,
+        "numEncCli": numArs
+      }, { headers: headersOpt });
 
-    return data;
+      return data;
+    } catch (err) {
+      throw new Error('Erro ao tentar capturar pedido na API da Flash');
+    }
   }
 }
 

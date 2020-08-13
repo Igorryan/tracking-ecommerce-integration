@@ -41,7 +41,7 @@ async function DownloadCSV() {
 
     return fileToday.name;
   } catch (err) {
-    throw new Error(err);
+    throw new Error('Erro ao tentar realizar o Download do CSV');
   }
 
 

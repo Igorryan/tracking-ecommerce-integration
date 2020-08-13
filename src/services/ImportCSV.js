@@ -6,7 +6,6 @@ const csv = require('csv-parser');
 const getHawbs = require('../functions/getHawbs');
 
 async function ImportCSV(fileName) {
-
   try {
 
     const hawbs = [];
@@ -21,7 +20,8 @@ async function ImportCSV(fileName) {
         const [, hawb] = splitMaster[7].split(':"');
         const [numAr,] = splitMaster[8].split(' ');
         const name = splitMaster[11].trim();
-        const [phone,] = splitMaster[14].split(' ');
+        const [telefone,] = splitMaster[14].split('"}');
+        const phone = telefone.replace(' ', '');
 
         hawbs.push({
           hawb,
@@ -42,12 +42,12 @@ async function ImportCSV(fileName) {
         }
 
         const pedidos = await getHawbs(hawbs);
+
         pedidos && await SendMessageWhatsApp(pedidos);
       });
   } catch (err) {
-    throw new Error(err);
+    throw new Error('Erro ao tentar importar CSV')
   }
-
 }
 
 module.exports = ImportCSV;
