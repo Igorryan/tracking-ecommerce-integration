@@ -12,7 +12,10 @@ async function SendMessageWhatsApp(pedidos) {
 
     const start = new Date();
 
-    let logs = `Log do dia: ${start.getDay()}/${start.getMonth()}`;
+    const day = start.getDate() < 10 ? `0${start.getDate()}` : `${start.getDate()}`
+    const month = start.getMonth() + 1 < 10 ? `0${start.getMonth() + 1}` : `${start.getMonth() + 1}`;
+
+    let logs = `Log do dia: ${day}/${month}`;
 
     console.log(`Iniciando processo de envio de mensagem às ${start.getHours()}:${start.getMinutes()}`);
 
