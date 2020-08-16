@@ -2,6 +2,7 @@ const PromiseFtp = require('promise-ftp');
 const fs = require('fs');
 const config = require('../config/ftpConfig.js');
 const isToday = require('../functions/isToday');
+const sendMessageAPIWhatsApp = require('../api/SendMessageAPIWhatsApp');
 
 async function DownloadCSV() {
 
@@ -41,7 +42,9 @@ async function DownloadCSV() {
 
     return fileToday.name;
   } catch (err) {
-    throw new Error('Erro ao tentar realizar o Download do CSV');
+    const erro = 'Erro ao tentar realizar o Download do CSV';
+    await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+    throw new Error(erro);
   }
 
 

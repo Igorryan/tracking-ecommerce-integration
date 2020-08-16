@@ -128,7 +128,9 @@ async function SendMessageWhatsApp(pedidos) {
     console.log(`✔ Pedidos atualizados (mensagens enviadas): ${pedidosAtualizados}`)
 
   } catch (err) {
-    throw new Error('Erro na seção de envio de mensagens para o WhatsApp')
+    const erro = 'Erro na seção de envio de mensagens para o WhatsApp';
+    await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+    throw new Error(erro);
   }
 
 }

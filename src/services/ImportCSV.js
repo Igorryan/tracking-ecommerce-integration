@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const csv = require('csv-parser');
 const getHawbs = require('../functions/getHawbs');
+const sendMessageAPIWhatsApp = require('../api/SendMessageAPIWhatsApp');
 
 async function ImportCSV(fileName) {
   try {
@@ -46,7 +47,9 @@ async function ImportCSV(fileName) {
         pedidos && await SendMessageWhatsApp(pedidos);
       });
   } catch (err) {
-    throw new Error('Erro ao tentar importar CSV')
+    const erro = 'Erro ao tentar importar CSV';
+    await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+    throw new Error(erro);
   }
 }
 

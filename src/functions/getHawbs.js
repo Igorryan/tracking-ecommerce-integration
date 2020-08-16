@@ -1,5 +1,6 @@
 const separarArray = require('./separarArray');
 const FlashAPI = require('../api/FlashAPI');
+const sendMessageAPIWhatsApp = require('../api/SendMessageAPIWhatsApp');
 
 async function getHawbs(PedidosDoCSV) {
 
@@ -9,11 +10,15 @@ async function getHawbs(PedidosDoCSV) {
   const quantidadeDeARsACadaConsulta = 400;
 
   if (!token) {
-    throw new Error('Aplicação não conseguiu pegar o Token na API da Flash');
+    const erro = "Aplicação não conseguiu pegar o Token na API da Flash"
+    await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+    throw new Error(erro);
   }
 
   if (!PedidosDoCSV) {
-    throw new Error('Não foi encontrado nenhum registro de pedidos para hoje');
+    const erro = "Não foi encontrado nenhum registro de pedidos para hoje"
+    await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+    throw new Error(erro);
   }
 
   //Separando em arrays de no maximo 500 posições
