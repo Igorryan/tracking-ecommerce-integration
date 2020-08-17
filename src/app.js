@@ -23,7 +23,7 @@ async function App() {
         if (typeof fileName === 'string') {
           await ImportCSV(fileName);
           fs.unlink(`src/files/${fileName}`, () => {
-            console.log(`CSV ${fileName} importado e removido do sistema de arquivos...`);
+            console.log(`CSV ${fileName} importado e removido do sistema de arquivos..`);
           });
         }
       }
