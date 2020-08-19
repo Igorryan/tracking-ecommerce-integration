@@ -13,6 +13,8 @@ function getTemplateMessageWhatsApp(evento, client) {
     \nVocê também pode acompanhar o status da sua encomenda no site da Flash Logística através do link abaixo 👇
     
     >>> https://flashcourier.com.br/rastreio/${newHawb}    
+
+    PS: Para ativar o link, adicione este número na sua agenda.
     
     \n_Essa é uma mensagem automática_`
   }
@@ -38,6 +40,8 @@ function getTemplateMessageWhatsApp(evento, client) {
     \nVocê também pode acompanhar o status da sua encomenda através do link abaixo 👇
     
     >>> https://flashcourier.com.br/rastreio/${newHawb}
+
+    PS: Para ativar o link, adicione este número na sua agenda.
     
     \n_Esta é uma mensagem automática_`
   }
