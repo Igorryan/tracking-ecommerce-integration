@@ -14,12 +14,15 @@ async function App() {
 
   let running = true;
 
-  while (running) {
+  const quantidadeDeTentativasMax = 5;
+  let quantidadeDeTentativas = 1;
+
+  while (running && quantidadeDeTentativas <= quantidadeDeTentativasMax) {
     if (VerifyHour(timeToSendMessageInTheMorning) || VerifyHour(timeToSendMessageInTheAfternoon)) {
 
       const fileName = await DownloadCSV();
       if (typeof fileName === 'string') {
-        const done = await ImportCSV(fileName)
+        const done = await ImportCSV(fileName);
         if (done) {
           running = false;
           fs.unlink(`src/files/${fileName}`, () => {
@@ -27,7 +30,7 @@ async function App() {
             console.log('Processo de envio de mensagem finalizado!');
           });
         } else {
-          console.log('Não foi possível finalizar o processo, tentando novamente...')
+          console.log(`Não foi possível finalizar o processo, tentando novamente ${quantidadeDeTentativas++}/${quantidadeDeTentativasMax}`);
           await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
