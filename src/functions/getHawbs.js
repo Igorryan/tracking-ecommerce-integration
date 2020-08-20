@@ -12,13 +12,17 @@ async function getHawbs(PedidosDoCSV) {
   if (!token) {
     const erro = "Aplicação não conseguiu pegar o Token na API da Flash"
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    throw new Error(erro);
+    await sendMessageAPIWhatsApp('31989551995', erro);
+    console.warn(erro);
+    return false;
   }
 
   if (!PedidosDoCSV) {
     const erro = "Não foi encontrado nenhum registro de pedidos para hoje"
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    throw new Error(erro);
+    await sendMessageAPIWhatsApp('31989551995', erro);
+    console.warn(erro);
+    return false;
   }
 
   //Separando em arrays de no maximo 500 posições
@@ -35,7 +39,9 @@ async function getHawbs(PedidosDoCSV) {
 
 
     if (!hawbs) {
-      throw new Error(`Nenhum hawb foi encontrado no ${i}° array`);
+      const erro = `Nenhum hawb foi encontrado no ${i}° array`;
+      console.warn(erro);
+      return false;
     }
 
     hawbs && hawbs.forEach(h => {

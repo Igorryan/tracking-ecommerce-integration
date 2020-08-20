@@ -7,7 +7,7 @@ const microsservice = require('./src/app');
 
 const app = express();
 app.use(express.json());
-app.listen(process.env.PORT || 3000, () => console.log('Executando microsservice tracking (FLASH & AMEND)'));
+app.listen(process.env.PORT || 3001, () => console.log('Executando microsservice tracking (FLASH & AMEND)'));
 
 connectDb().then(async () => {
   console.log('Banco conectado e cron job iniciado.');

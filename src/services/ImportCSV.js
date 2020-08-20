@@ -7,13 +7,13 @@ const getHawbs = require('../functions/getHawbs');
 const sendMessageAPIWhatsApp = require('../api/SendMessageAPIWhatsApp');
 
 async function ImportCSV(fileName) {
-  try {
 
-    const hawbs = [];
+  const hawbs = [];
 
-    let countLinesCsv = 0;
+  let countLinesCsv = 0;
 
-    await fs.createReadStream(path.resolve('src', 'files', `${fileName}`))
+  return await new Promise((resolve, reject) => {
+    fs.createReadStream(path.resolve('src', 'files', `${fileName}`))
       .pipe(csv())
       .on('data', (row) => {
         const linha = JSON.stringify(row);
@@ -35,22 +35,33 @@ async function ImportCSV(fileName) {
       })
       .on('end', async () => {
         console.log(`Linhas lidas no CSV: ${countLinesCsv}`)
-        console.log('✔ Hawbs salvos');
         console.log(`Pedidos recuperados: ${hawbs.length}`);
 
         if (!hawbs) {
-          throw new Error('Nenhum hawb lido no CSV');
+          const erro = 'Nenhum hawb lido no CSV';
+          console.warn(erro)
+          return false;
         }
 
         const pedidos = await getHawbs(hawbs);
+        resolve(pedidos)
+        })
+      .on('error', reject);
+  }).then(async (pedidos) => {
 
-        pedidos && await SendMessageWhatsApp(pedidos);
-      });
-  } catch (err) {
+    if(!pedidos){
+      return false;
+    }
+    
+    await SendMessageWhatsApp(pedidos);
+    return true;
+  }).catch(async (error) => {
     const erro = 'Erro ao tentar importar CSV';
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    throw new Error(erro);
-  }
+    await sendMessageAPIWhatsApp('31989551995', erro);
+    console.warn(erro);
+    return false;
+  })
 }
 
 module.exports = ImportCSV;

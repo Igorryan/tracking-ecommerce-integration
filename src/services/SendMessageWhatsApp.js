@@ -26,10 +26,6 @@ async function SendMessageWhatsApp(pedidos) {
     let pedidosAnalisados = 0;
     let mensagensEnviadas = 0;
 
-    if (!pedidos) {
-      throw new Error('Array de pedidos para enviar mensagens no WhatsApp está vazio!');
-    }
-
     //Para cada pedido
     for (let i = 0; i < pedidos.length; i++) {
 
@@ -126,13 +122,15 @@ async function SendMessageWhatsApp(pedidos) {
     console.log(`✔ Pedidos analisados: ${pedidos.length}`)
     console.log(`✔ Pedidos novos (mensagens enviadas): ${pedidosNovos}`)
     console.log(`✔ Pedidos atualizados (mensagens enviadas): ${pedidosAtualizados}`)
-
+    return true;
   } catch (err) {
     const erro = 'Erro na seção de envio de mensagens para o WhatsApp';
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    throw new Error(erro);
+    await sendMessageAPIWhatsApp('31989551995', erro);
+    console.log(erro)
+    return false;
   }
-
+  return true;
 }
 
 module.exports = SendMessageWhatsApp;

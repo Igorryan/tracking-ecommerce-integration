@@ -14,13 +14,21 @@ async function DownloadCSV() {
     const files = await ftp.list('/Retorno_Diario');
 
     if (!files) {
-      throw new Error('Nenhum arquivo encontrado no servidor FTP');
+      const erro = 'Nenhum arquivo encontrado no servidor FTP';
+      await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+      await sendMessageAPIWhatsApp('31989551995', erro);
+      console.log(erro);
+      return false;
     }
 
     const fileToday = await files.find(file => isToday(file.date));
 
     if (!fileToday) {
-      throw new Error('O arquivo de hoje não está disponível');
+      const erro = 'O arquivo de hoje não está disponível';
+      await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
+      await sendMessageAPIWhatsApp('31989551995', erro);
+      console.log(erro);
+      return false;
     }
 
     await ftp.end();
@@ -44,7 +52,9 @@ async function DownloadCSV() {
   } catch (err) {
     const erro = 'Erro ao tentar realizar o Download do CSV';
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    throw new Error(erro);
+    await sendMessageAPIWhatsApp('31989551995', erro);
+    console.log(erro);
+    return false;
   }
 
 

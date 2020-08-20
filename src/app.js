@@ -12,30 +12,30 @@ async function App() {
   const timeToSendMessageInTheMorning = Number(process.env.TIME_TO_SEND_FIRST_MESSAGES || 9);
   const timeToSendMessageInTheAfternoon = Number(process.env.TIME_TO_SEND_SECOND_MESSAGES || 13);
 
-  console.log(`Serviço iniciado às ${new Date()}\n`);
   let running = true;
 
   while (running) {
-    try {
-      if (VerifyHour(timeToSendMessageInTheMorning) || VerifyHour(timeToSendMessageInTheAfternoon)) {
+    if (VerifyHour(timeToSendMessageInTheMorning) || VerifyHour(timeToSendMessageInTheAfternoon)) {
 
-        const fileName = await DownloadCSV();
-        if (typeof fileName === 'string') {
-          await ImportCSV(fileName);
+      const fileName = await DownloadCSV();
+      if (typeof fileName === 'string') {
+        const done = await ImportCSV(fileName)
+        if (done) {
+          running = false;
           fs.unlink(`src/files/${fileName}`, () => {
             console.log(`CSV ${fileName} importado e removido do sistema de arquivos..`);
+            console.log('Processo de envio de mensagem finalizado!');
           });
+        } else {
+          console.log('Não foi possível finalizar o processo, tentando novamente...')
+          await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
-
+    } else {
+      console.log('Horário não alocado para envio de mensagens. ')
       running = false;
-      await new Promise(resolve => setTimeout(resolve, 10000));
-    } catch (err) {
-      console.log(err);
-      await new Promise(resolve => setTimeout(resolve, 5000));
     }
   }
-
 }
 
 module.exports = App;
