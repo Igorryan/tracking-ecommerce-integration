@@ -30,7 +30,7 @@ async function App() {
             console.log('Processo de envio de mensagem finalizado!');
           });
         } else {
-          console.log(`Não foi possível finalizar o processo, tentando novamente ${quantidadeDeTentativas++}/${quantidadeDeTentativasMax}`);
+          console.log(`Não foi possível finalizar o processo, tentando novamente ${quantidadeDeTentativas}/${quantidadeDeTentativasMax}`);
           await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
@@ -38,7 +38,10 @@ async function App() {
       console.log('Horário não alocado para envio de mensagens. ')
       running = false;
     }
+
+    quantidadeDeTentativas++;
   }
+
 }
 
 module.exports = App;
