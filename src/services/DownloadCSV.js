@@ -16,7 +16,6 @@ async function DownloadCSV() {
     if (!files) {
       const erro = 'Nenhum arquivo encontrado no servidor FTP';
       await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-      await sendMessageAPIWhatsApp('31989551995', erro);
       console.log(erro);
       return false;
     }
@@ -26,7 +25,6 @@ async function DownloadCSV() {
     if (!fileToday) {
       const erro = 'O arquivo de hoje não está disponível';
       await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-      await sendMessageAPIWhatsApp('31989551995', erro);
       console.log(erro);
       return false;
     }
@@ -52,7 +50,6 @@ async function DownloadCSV() {
   } catch (err) {
     const erro = 'Erro ao tentar realizar o Download do CSV';
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    await sendMessageAPIWhatsApp('31989551995', erro);
     console.log(erro);
     return false;
   }

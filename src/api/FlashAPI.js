@@ -24,7 +24,6 @@ class FlashAPI {
     } catch (err) {
       const erro = 'Erro ao tentar pegar token na API da Flash';
       await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-      await sendMessageAPIWhatsApp('31989551995', erro);
       console.log(erro);
       return false;
     }
@@ -50,7 +49,6 @@ class FlashAPI {
     } catch (err) {
       const erro = 'Erro ao tentar capturar pedido na API da Flash';
       await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-      await sendMessageAPIWhatsApp('31989551995', erro);
       console.log(erro);
       return false;
     }

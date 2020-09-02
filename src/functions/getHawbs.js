@@ -12,7 +12,6 @@ async function getHawbs(PedidosDoCSV) {
   if (!token) {
     const erro = "Aplicação não conseguiu pegar o Token na API da Flash"
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    await sendMessageAPIWhatsApp('31989551995', erro);
     console.warn(erro);
     return false;
   }
@@ -20,7 +19,6 @@ async function getHawbs(PedidosDoCSV) {
   if (!PedidosDoCSV) {
     const erro = "Não foi encontrado nenhum registro de pedidos para hoje"
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    await sendMessageAPIWhatsApp('31989551995', erro);
     console.warn(erro);
     return false;
   }

@@ -110,13 +110,6 @@ async function SendMessageWhatsApp(pedidos) {
         \nPedidos atualizados (mensagens enviadas): ${pedidosAtualizados}\n
         \nFim do processo: ${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
         `);
-      await sendMessageAPIWhatsApp('31989551995', `${logs}\nMensagem técnica: 
-        \nInicio do processo: ${start.getHours() - 3}:${start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()}\n
-        \nPedidos analisados: ${pedidos.length}
-        \nPedidos novos (mensagens enviadas): ${pedidosNovos}
-        \nPedidos atualizados (mensagens enviadas): ${pedidosAtualizados}\n
-        \nFim do processo: ${end.getHours() - 3}:${end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}
-        `);
     }
 
     console.log(`✔ Pedidos analisados: ${pedidos.length}`)
@@ -126,7 +119,6 @@ async function SendMessageWhatsApp(pedidos) {
   } catch (err) {
     const erro = 'Erro na seção de envio de mensagens para o WhatsApp';
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    await sendMessageAPIWhatsApp('31989551995', erro);
     console.log(erro)
     return false;
   }

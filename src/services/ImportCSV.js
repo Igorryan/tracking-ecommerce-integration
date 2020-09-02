@@ -58,7 +58,6 @@ async function ImportCSV(fileName) {
   }).catch(async (error) => {
     const erro = 'Erro ao tentar importar CSV';
     await sendMessageAPIWhatsApp(process.env.NUM_FOR_LOGS, erro);
-    await sendMessageAPIWhatsApp('31989551995', erro);
     console.warn(erro);
     return false;
   })
