@@ -8,7 +8,7 @@
     "start": "node ./init.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "csv-parser": "^2.3.3",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
